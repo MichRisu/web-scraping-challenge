@@ -8,7 +8,7 @@ def init_browser():
     executable_path = {"executable_path": "/usr/local/bin/chromedriver"}
     return Browser("chrome", **executable_path, headless=False)
 
-def scrape():
+def scrape_info():
     browser = init_browser()
 
     # ----- Visit Mars news site ----- #
@@ -63,7 +63,7 @@ def scrape():
     df_mars.head()
 
     # Use Pandas to convert the data to a HTML table string
-    df_mars.to_html('Mars_Facts_table.html')
+    mars_facts_table = df_mars.to_html()
 
     # ----- Visit USGS Astrogeology site ----- #
     hemis_url = 'https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars'
@@ -89,6 +89,15 @@ def scrape():
         img_url = soup.find('ul').li.a['href']
         
         hemisphere_image_urls.append({'title': title, 'img_url': img_url})
+
+    # Store data in a dictionary
+    mars_data = {
+    "news_title": news_title,
+    "news_paragraph": news_p,
+    "featured_image": featured_image_url,
+    "mars_facts": mars_facts_table, 
+    "hemispheres": hemisphere_image_urls
+    }
 
     # Quit the browser after scraping
     browser.quit()

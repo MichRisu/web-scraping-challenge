@@ -10,23 +10,62 @@
 </head>
 
 <body>
-    <div class="container-fluid">
-        <div class="jumbotron text-center">
-        <h1>Mission to Mars</h1>      
-        <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape New Data</a></p>
-    </div>
-
     <div class="container">
+        <!-- Jumbotron with button -->
+        <div class="jumbotron text-center">
+            <h1>Mission to Mars</h1>      
+            <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape New Data</a></p>
+        </div>
+
+        <!-- Latest News -->
         <div class="row">
-            <!-- Latest News -->
-            <div class="col-md-6">
-                <h2>Latest Mars News:</h2>
+            <div class="col-md-12">
+                <h2>Latest Mars News</h2>
                 <h3>{{ mars.news_title }}</h3>
                 <p>{{ mars.news_p }}</p>
             </div>
-            
         </div>
+
+        <!-- Featured Image and Facts -->
+        <div class="row">
+            <!-- Featured Image -->
+            <div class="col-lg-8">
+                <h2>Featured Mars Image</h2>
+                <img src="{{ mars.featured_image_url }}" max-width="100%"; alt="Featured Mars Image">
+            </div>
+            <!-- Mars Facts -->
+            <div class="col-lg-4">
+                <h3>Mars Facts</h3>
+                <p> {{ mars.fact_table | safe }} </p>
+            </div>
+        </div>
+
+        <!-- Hemispheres -->
+        <div class="row">
+            <div class="col-md-8 offset-4">
+                <h2 class="align-items-center">Mars Hemispheres</h2>
+            </div>
+
+            <br>
+
+            <div class="row">
+                {% for hemispheres in mars.hemispheres %}
+                    <div class="col-md-6 text-center">
+                        <div>
+                            <img src="{{ hemisphere.img_url | safe}}" width="512 px" height="512 px">
+                        </div>
+                        <div>
+                            <h4> {{ hemisphere.title | safe }} </h4>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+
+        </div>
+
     </div>
+    
 
 
     
