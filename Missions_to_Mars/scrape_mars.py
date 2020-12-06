@@ -2,6 +2,7 @@ from splinter import Browser
 from bs4 import BeautifulSoup as bs
 import time
 import requests
+import pandas as pd
 
 
 def init_browser():
@@ -14,6 +15,7 @@ def scrape_info():
     # ----- Visit Mars news site ----- #
     mars_url = 'https://mars.nasa.gov/news/?page=0&per_page=40&order=publish_date+desc%2Ccreated_at+desc&search=&category=19%2C165%2C184%2C204&blank_scope=Latest'
     browser.visit(mars_url)
+    time.sleep(3)
 
     #Scrape page into Soup
     html = browser.html
@@ -28,28 +30,24 @@ def scrape_info():
     # Assign the text to variables with text only
     news_title = titles[1].text
     news_p = paras[1].text
+    time.sleep(5)
 
     # ----- Visit JPL site ----- #
     jpl_url = 'https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars'
     browser.visit(jpl_url)
+    time.sleep(3)
 
-    # Scrape page into soup
+    # Create BeautifulSoup object
     jpl_html = browser.html
     soup = bs(jpl_html, 'html.parser')
 
-    # Find the featured image from home page and click Full Image button
-    browser.links.find_by_partial_text('FULL IMAGE')
-    time.sleep(1)
+    # Find the url for the featured image
+    jpl_image_path = soup.find('a', class_='button fancybox')['data-fancybox-href']
 
-    # Find the more info button and click
-    browser.links.find_by_partial_text('more info')
-
-    # Use BeautifulSoup to find the full size .jpg image URL
-    jpl_image = soup.find('figure', class_='lede').find('a')['href']
     jpl_base = 'https://www.jpl.nasa.gov'
-
-    featured_image_url = jpl_base + jpl_image
-
+    featured_image_url = jpl_base + jpl_image_path
+    time.sleep(3)
+    
     # ----- Visit site for Mars facts ----- #
     # Use Pandas to scrape the table of facts
     facts_url = 'https://space-facts.com/mars/'

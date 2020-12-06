@@ -25,7 +25,7 @@ def scrape():
     results = scrape_info()
 
     # Update the Mongo database using update and upsert=True
-    mongo.db.mars.update(results, upsert=True)
+    mongo.db.mars.update_one({}, {"$set": results}, upsert=True)
 
     #Redirect back to home page
     return redirect("/")

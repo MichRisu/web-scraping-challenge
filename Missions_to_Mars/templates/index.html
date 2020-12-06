@@ -21,56 +21,51 @@
         <div class="row">
             <div class="col-md-12">
                 <h2>Latest Mars News</h2>
-                <h3>{{ mars.news_title }}</h3>
-                <p>{{ mars.news_p }}</p>
+                <h4>{{ mars.news_title }}</h4>
+                <p>{{ mars.news_paragraph }}</p>
             </div>
         </div>
-
+    <hr>
+        <br>
         <!-- Featured Image and Facts -->
         <div class="row">
             <!-- Featured Image -->
             <div class="col-lg-8">
                 <h2>Featured Mars Image</h2>
-                <img src="{{ mars.featured_image_url }}" max-width="100%"; alt="Featured Mars Image">
+                <img src="{{ mars.featured_image }}" max-width=100%; alt="Featured Mars Image">
             </div>
             <!-- Mars Facts -->
             <div class="col-lg-4">
                 <h3>Mars Facts</h3>
-                <p> {{ mars.fact_table | safe }} </p>
+                <p> {{ mars.mars_facts | safe }} </p>
             </div>
         </div>
-
+        <br>
         <!-- Hemispheres -->
         <div class="row">
-            <div class="col-md-8 offset-4">
-                <h2 class="align-items-center">Mars Hemispheres</h2>
+            <div class="col-md-12">
+                <h2 class="text-center">Mars Hemispheres</h2>
             </div>
-
-            <br>
-
-            <div class="row">
-                {% for hemispheres in mars.hemispheres %}
-                    <div class="col-md-6 text-center">
-                        <div>
-                            <img src="{{ hemisphere.img_url | safe}}" width="512 px" height="512 px">
-                        </div>
-                        <div>
-                            <h4> {{ hemisphere.title | safe }} </h4>
-                        </div>
-                    </div>
-                {% endfor %}
-
-            </div>
-
         </div>
-
+        <hr>
+        <div class="row">
+            {% for hemisphere in mars.hemispheres %}
+                <div class="col-lg-6 border">
+                    <div>
+                        <img src="{{ hemisphere.img_url | safe}}" width="512 px" height="512 px">
+                    </div>
+                    <div>
+                        <h4> {{ hemisphere.title | safe }} </h4>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     </div>
-    
+    <br>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-
-    
-  
-  </div>
 </body>
 
 </html>
